@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-container" id="backgroundContainer"></div>
+    <div class="container">
+        <div class="header">
+            <h1>BAVIS</h1>
+            <div class="score-display">
+                <span>Score: <span id="score">0</span></span>
+                <span>High Score: <span id="highScore">0</span></span>
+            </div>
+        </div>
+        
+        <canvas id="gameCanvas" width="320" height="320"></canvas>
+        
+        <div class="controls">
+            <p id="gameStatus">Press SPACE to start</p>
+            <button id="startBtn">START GAME</button>
+            <button id="resetBtn">RESET</button>
+            <button id="leaderboardBtn">LEADERBOARD</button>
+        </div>
+    </div>
+
+    <!-- Leaderboard Modal -->
+    <div class="modal" id="leaderboardModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>TOP SCORES</h2>
+            <div id="leaderboardList" class="leaderboard-list"></div>
+        </div>
+    </div>
+
+    <!-- Submit Score Modal -->
+    <div class="modal" id="submitScoreModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>NEW HIGH SCORE!</h2>
+            <p id="scoreValue">Score: 0</p>
+            <input type="text" id="playerName" placeholder="Enter your name" maxlength="20">
+            <button id="submitScoreBtn">SUBMIT SCORE</button>
+            <button id="skipSubmitBtn">SKIP</button>
+        </div>
+
+    <script src="game.js"></script>
+</body>
+</html>

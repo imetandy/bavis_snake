@@ -1,0 +1,327 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: #0a0e27;
+    color: #e0e0ff;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0a0e27;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.bavis-bg {
+    position: absolute;
+    opacity: 0.08;
+    pointer-events: none;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+    background-color: #1a1f3a;
+    border: 3px solid #2d5f4f;
+    border-radius: 8px;
+    box-shadow: 0 0 30px rgba(45, 95, 79, 0.5);
+    max-width: 400px;
+    width: 100%;
+}
+
+.header {
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 48px;
+    color: #4dd4ac;
+    text-shadow: 0 0 10px #4dd4ac, 0 0 20px #2d5f4f;
+    margin-bottom: 10px;
+    letter-spacing: 4px;
+}
+
+.score-display {
+    display: flex;
+    justify-content: space-around;
+    font-size: 18px;
+    color: #9dd4ff;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+#gameCanvas {
+    display: block;
+    margin: 0 auto 20px;
+    background-color: #0f1420;
+    border: 2px solid #2d5f4f;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal.show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #1a1f3a;
+    border: 3px solid #2d5f4f;
+    border-radius: 8px;
+    padding: 30px;
+    max-width: 350px;
+    width: 90%;
+    box-shadow: 0 0 30px rgba(45, 95, 79, 0.8);
+    position: relative;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-content h2 {
+    color: #4dd4ac;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px #4dd4ac;
+}
+
+.modal-content p {
+    color: #9dd4ff;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.close {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #4dd4ac;
+    cursor: pointer;
+    transition: text-shadow 0.3s ease;
+}
+
+.close:hover {
+    text-shadow: 0 0 10px #4dd4ac;
+}
+
+#playerName {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    background-color: #0f1420;
+    border: 2px solid #2d5f4f;
+    border-radius: 4px;
+    color: #e0e0ff;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+#playerName:focus {
+    outline: none;
+    border-color: #4dd4ac;
+    box-shadow: 0 0 10px rgba(77, 212, 172, 0.3);
+}
+
+.leaderboard-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.leaderboard-entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 8px;
+    background-color: #0f1420;
+    border-left: 3px solid #2d5f4f;
+    border-radius: 2px;
+    color: #e0e0ff;
+}
+
+.leaderboard-entry.top-1 {
+    border-left-color: #ffcc00;
+    background-color: rgba(255, 204, 0, 0.1);
+}
+
+.leaderboard-entry.top-2 {
+    border-left-color: #c0c0c0;
+    background-color: rgba(192, 192, 192, 0.1);
+}
+
+.leaderboard-entry.top-3 {
+    border-left-color: #cd7f32;
+    background-color: rgba(205, 127, 50, 0.1);
+}
+
+.leaderboard-rank {
+    font-weight: bold;
+    color: #4dd4ac;
+    margin-right: 10px;
+    min-width: 20px;
+}
+
+.leaderboard-name {
+    flex: 1;
+    text-align: left;
+}
+
+.leaderboard-score {
+    font-weight: bold;
+    color: #ff6b6b;
+}
+
+#gameStatus {
+    font-size: 16px;
+    color: #ff6b6b;
+    min-height: 24px;
+    font-weight: bold;
+    text-shadow: 0 0 5px #ff6b6b;
+}
+
+button {
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #2d5f4f;
+    color: #4dd4ac;
+    border: 2px solid #4dd4ac;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    -webkit-appearance: none;
+    appearance: none;
+    touch-action: manipulation;
+    min-height: 44px;
+}
+
+button:hover {
+    background-color: #3d7f5f;
+    box-shadow: 0 0 15px rgba(77, 212, 172, 0.6);
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+        border: 2px solid #2d5f4f;
+        margin: 10px;
+    }
+    
+    h1 {
+        font-size: 32px;
+        margin-bottom: 8px;
+    }
+    
+    #gameCanvas {
+        width: 100%;
+        height: auto;
+        max-width: 320px;
+        margin: 15px auto;
+        border: 2px solid #2d5f4f;
+    }
+    
+    .score-display {
+        font-size: 13px;
+        flex-direction: column;
+        gap: 5px;
+        margin-bottom: 10px;
+    }
+    
+    button {
+        padding: 10px 16px;
+        font-size: 14px;
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    #gameStatus {
+        font-size: 14px;
+    }
+    
+    .controls {
+        gap: 8px;
+    }
+}
+
+@media (max-width: 400px) {
+    .container {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 24px;
+        margin-bottom: 5px;
+    }
+    
+    .score-display {
+        font-size: 12px;
+    }
+    
+    button {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+}
